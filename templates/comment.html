@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Comment page{% endblock %}
+{% block main %}
+    {% if message %}
+        <form action="/comment/{{comment_id}}/edit" method="post">
+    {% else %}
+        <form action="/{{table_name}}/{{id}}/new-comment" method="post">
+    {% endif %}
+        <div class="add-new-QA-box">
+            <label for="comment">Add new comment</label><br>
+            <textarea id="comment" name="comment" required>{{message if message}}</textarea>
+            <button id="add-button" type="submit">Submit</button>
+        </div>
+        </form>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}Main page{% endblock %}
+{% block main %}
+{#    < align="center" bgcolor="#e8e9f0" cellpadding="10" border="1">#}
+{#        <tr align="center" bgcolor="#c0c0c6">#}
+{#            <th width="50">Id</th>#}
+{#            <th>Submission Time</th>#}
+{#            <th>View Number</th>#}
+{#            <th width="100">Vote Number</th>#}
+{#            <th>Title</th>#}
+{#            <th width="700">Message</th>#}
+{#            <th>Image</th>#}
+{#        </tr>#}
+
+{#        {% for item in questions %}#}
+{#            <tr align="center" height="70">#}
+{#                <td>#}
+{#                    <form action="/question/{{ item['id'] }}" method="post">#}
+{#                        <button type="submit">{{ item['id'] }}</button>#}
+{#                    </form>#}
+{#                </td>#}
+{#                <td>{{ item['submission_time'] }}</td>#}
+{#                <td>{{ item['view_number'] }}</td>#}
+{#                <td>{{ item['vote_number'] }}#}
+{#                    <form action="/question/{{ item['id'] }}/vote" method="post">#}
+{#                        <button type="submit" name="vote" value="1">UP</button>#}
+{#                        <button type="submit" name="vote" value="-1">DOWN</button>#}
+{#                    </form>#}
+{#                </td>#}
+{#                <td>{{ item['title'] }}</td>#}
+{#                <td align="justify">{{ item['message'] }}</td>#}
+{#                <td>{{ item['image'] }}</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+
+    <div class="index-container">
+        {% for item in questions %}
+            <div class="index-question-box">
+                <div class="index-col1">
+                    <form action="/question/{{ item['id'] }}" method="post">
+                        <button id="index-question-title" type="submit">{{ item['title'] }}</button>
+                    </form>
+                    <p >{{ item['message'] }}</p>
+                </div>
+                <div class="index-col2">
+                    <p>Views: {{ item['view_number'] }}</p>
+                    <p>Votes: {{ item['vote_number'] }}</p>
+                    <p>{{ item['submission_time'] }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}

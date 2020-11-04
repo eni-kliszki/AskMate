@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Question list{% endblock %}
+{% block main %}
+        <table>
+            <tr>
+                <th>id</th>
+                <th>email</th>
+                <th>rep</th>
+                <th>time</th>
+                <th>Q</th>
+                <th>A</th>
+                <th>C</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                <td>
+                    <form action="/users/{{ user['user_id'] }}" method="post">
+                        <button type="submit" name="user_id" value="{{ user['user_id'] }}">{{ user['user_id'] }}</button>
+                    </form>
+                </td>
+                <td>{{ user['email'] }}</td>
+                <td>{{ user['reputation'] }}</td>
+                <td>{{ user['registration_time'] }}</td>
+                <td>{{ user['asked_questions'] }}</td>
+                <td>{{ user['answers'] }}</td>
+                <td>{{ user['comments'] }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+
+{% endblock %}

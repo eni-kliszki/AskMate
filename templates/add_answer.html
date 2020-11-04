@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Add answer{% endblock %}
+{% block main %}
+    {% if answer_id %}
+        <form action="/answer/{{answer_id}}/edit" method="post">
+    {% else %}
+        <form action='/question/{{ question_id }}/new-answer' method="post">
+    {% endif %}
+        <div class="add-new-QA-box">
+            <label for='message'>Message</label><br>
+            <textarea rows="5" cols="20" id="message" name="message" required>{{ message if message}}</textarea><br>
+            <button id="add-button" type="submit">Submit</button>
+        </div>
+    </form>
+    <a id="back-to-question" href='/question/{{ question_id }}'>Back to the specific question</a><br>
+{% endblock %}

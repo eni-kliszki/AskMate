@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Registration{% endblock %}
+{% block main %}
+    <div class="authentication-box">
+        <h2>Registration</h2>
+        <div class="authentication-textbox">
+            <form action="/registration" method="post">
+                <input id="authentication-input" type="text" placeholder="E-mail" name="email" required><br>
+                <input id="authentication-input" type="password" placeholder="Password" name="password" required>
+                <button class="authentication-button" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

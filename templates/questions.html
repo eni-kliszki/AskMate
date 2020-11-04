@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block title %}Question{% endblock %}
+{% block main %}
+    <div class="question-answer-container">
+
+        <div class="question-container">
+            <div class="index-question-box">
+                <div class="index-col1">
+                    <h2>{{ question['title'] }}</h2>
+                    <p>{{ question['message'] }}</p>
+                    <p>{{ question['user_id'] }}</p>
+                </div>
+                <div class="index-col2">
+                    <p>Views: {{ question['view_number'] }}</p>
+                    <p>Votes: {{ question['vote_number'] }}</p>
+                    <form action="/question/{{ question['id'] }}/vote" method="post">
+                        <button type="submit" name="vote_in_questions" value="1">UP</button>
+                        <button type="submit" name="vote_in_questions" value="-1">DOWN</button>
+                    </form>
+                    <p>Asked: {{ question['submission_time'] }}</p>
+                    <a href="/question/{{ id }}/delete">Delete question</a><br>
+                    <a href="/question/{{ id }}/edit">Edit question</a><br>
+                    <a href="/question/{{ id }}/new-comment">Add new comment</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="comment-container">
+            {% for comment in question_comment %}
+                <div class="one-comment">
+                    <div class="comment-col1">
+                        <p>{{ comment.message }} <br> {{ comment.submission_time }}</p>
+                        <span>Edited: {{ comment.edited_count }}</span><br>
+                        <br>
+                    </div>
+                    <div class="comment-col2">
+                        <p><a href="/comment/{{ comment['id'] }}/edit">edit</a>/<a
+                                href="/comment/{{ comment['id'] }}/delete">delete</a></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h3 align="center"><a href="/question/{{ id }}/new-answer">Add New Answer</a></h3>
+        <br>
+        <div class="answer-container">
+            <h2 align="center">Anwers</h2>
+            {% for item in answers %}
+                <div class="index-question-box">
+                    <div class="index-col1">
+                        <p>{{ item['message'] }}</p><br>
+                        <br>
+                        <a href="/answer/{{ item['id'] }}/delete">Delete answer</a><br>
+                        <a href="/answer/{{ item['id'] }}/edit">Edit answer</a>
+                        <br>
+                        <a href="/answer/{{ item['id'] }}/new-comment">Add new comment</a>
+                    </div>
+                    <div class="index-col2">
+                        <p>Votes: {{ item['vote_number'] }}</p>
+                        <form action="/answer/{{ item['id'] }}/vote" method="post">
+                            <button type="submit" name="vote" value="1">UP</button>
+                            <button type="submit" name="vote" value="-1">DOWN</button>
+                        </form>
+                        <p>
+                        <p>Posted: {{ item['submission_time'] }}</p></p>
+                    </div>
+                </div>
+
+                <div class="comment-container">
+                    {% for comment in answer_comment %}
+                        {% if comment.answer_id == item['id'] %}
+                            <div class="one-comment">
+                                <div class="comment-col1">
+                                    <p>{{ comment.message }} <br> {{ comment.submission_time }}</p>
+                                    <span>Edited: {{ comment.edited_count }}</span>
+                                </div>
+                                <div class="comment-col2">
+                                    <p><a href="/comment/{{ comment['id'] }}/edit">edit</a>/<a
+                                            href="/comment/{{ comment['id'] }}/delete">delete</a></p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

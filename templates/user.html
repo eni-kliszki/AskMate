@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block main %}
+    <table>
+        <tr>
+            <th>id</th>
+            <th>email</th>
+            <th>rep</th>
+            <th>time</th>
+            <th>Q</th>
+            <th>A</th>
+            <th>C</th>
+        </tr>
+        <tr>
+            <td>{{ user['user_id'] }}</td>
+            <td>{{ user['email'] }}</td>
+            <td>{{ user['reputation'] }}</td>
+            <td>{{ user['registration_time'] }}</td>
+            <td>{{ user['asked_questions'] }}</td>
+            <td>{{ user['answers'] }}</td>
+            <td>{{ user['comments'] }}</td>
+        </tr>
+    </table>
+    <div class="user-q-a-c">
+        {% for question in questions %}
+            <div class="user-one-thing">
+                <h3>{{ user['email'] }}'s question:</h3>
+                <span id="user-page-question">{{ question['title'] }} </span> | <span> {{ question['message'] }}</span>
+            </div>
+        {% endfor %}
+
+        {% for answer in answers %}
+            <div class="user-one-thing">
+                <h3>Question: </h3>
+                <span id="user-page-question">{{ answer['title'] }}</span> | <span>{{ answer['message'] }}</span>
+                <hr>
+                <span>{{user['email'] }}'s answer: {{ answer['message'] }}</span>
+            </div>
+        {% endfor %}
+        {% for comment in comments %}
+            <div class="user-one-thing">
+                <p>{{user['email'] }}'s comment: {{ comment['message'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

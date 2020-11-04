@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+{% block title %}Question list{% endblock %}
+{% block main %}
+{#<table>#}
+{#    <tr>#}
+{#        <td valign="top" width="170px">#}
+{#            <form action="/list" method="get">#}
+{#                <h3>Order by category</h3>#}
+{#                <input type="radio" name="order_by" value="title">Title</input><br>#}
+{#                <input type="radio" name="order_by" value="submission_time">Submit time</input><br>#}
+{#                <input type="radio" name="order_by" value="view_number">Number of views</input><br>#}
+{#                <input type="radio" name="order_by" value="vote_number">Number of votes</input><br>#}
+{#                <input type="radio" name="order_by" value="message">Message</input><br>#}
+{#                <br>#}
+{#                <input type="radio" name="order_direction" value="desc">Desc</input><br>#}
+{#                <input type="radio" name="order_direction" value="asc">Asc</input><br>#}
+{#                <br>#}
+{#                <button type="submit">Submit</button>#}
+{#            </form>#}
+{#            <br><br>#}
+{#            <form action="/search" method="get">#}
+{#                <h3>Search question</h3>#}
+{#                <input type="text" name="q">#}
+{#                <button type="submit">Submit</button>#}
+{#            </form>#}
+{#            <a href="/add-question">Ask a question</a>#}
+{#        </td>#}
+{#    </tr>#}
+{#</table>#}
+
+
+{#            <table align="center" bgcolor="#e8e9f0" cellpadding="10" border="1">#}
+{#                <tr align="center" bgcolor="#c0c0c6">#}
+{#                    <th width="50">Id</th>#}
+{#                    <th>Submission Time</th>#}
+{#                    <th>View Number</th>#}
+{#                    <th width="100">Vote Number</th>#}
+{#                    <th>Title</th>#}
+{#                    <th width="700">Message</th>#}
+{#                    <th>Image</th>#}
+{#                </tr>#}
+{#                {% for item in questions %}#}
+{#                    <tr align="center" height="70">#}
+{#                        <td>#}
+{#                            <form action="/question/{{ item['id'] }}" method="post">#}
+{#                                <button type="submit">{{ item['id'] }}</button>#}
+{#                            </form>#}
+{#                        </td>#}
+{#                        <td>{{ item['submission_time'] }}</td>#}
+{#                        <td>{{ item['view_number'] }}</td>#}
+{#                        <td>{{ item['vote_number'] }}#}
+{#                            <form action="/question/{{ item['id'] }}/vote" method="post">#}
+{#                                <button type="submit" name="vote" value="1">UP</button>#}
+{#                                <button type="submit" name="vote" value="-1">DOWN</button>#}
+{#                            </form>#}
+{#                        </td>#}
+{#                        <td>#}
+{#                            {% if snippet != '' %}#}
+{#                                {{item['title']|replace(snippet, '<mark>'+snippet+'</mark>')|safe}}#}
+{#                            {% else %}#}
+{#                                {{ item['title'] }}#}
+{#                            {% endif %}#}
+{#                        </td>#}
+{#                        <td align="justify">#}
+{#                            {% if snippet != '' %}#}
+{#                                {{item['message']|replace(snippet, '<mark>'+snippet+'</mark>')|safe}}#}
+{#                            {% else %}#}
+{#                                {{ item['message'] }}#}
+{#                            {% endif %}#}
+{#                        </td>#}
+{#                        <td>{{ item['image'] }}</td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </table>#}
+
+
+    <div class="sidebar">
+        <form action="/list" method="get">
+            <h3>Order by category</h3>
+            <div class="filter">
+                <ul>
+                    <li><input type="radio" name="order_by" value="title">Title</input></li>
+                    <li><input type="radio" name="order_by" value="submission_time">Submit time</input></li>
+                    <li><input type="radio" name="order_by" value="view_number">Number of views</input></li>
+                    <li><input type="radio" name="order_by" value="vote_number">Number of votes</input></li>
+                    <li><input type="radio" name="order_by" value="message">Message</input></li>
+                    <br>
+                    <li><input type="radio" name="order_direction" value="desc">Desc</input></li>
+                    <li><input type="radio" name="order_direction" value="asc">Asc</input></li>
+                    <br>
+                    <button type="submit">Submit</button>
+                </ul>
+            </div>
+        </form>
+    <br>
+        <form action="/search" method="get">
+            <h3>Search for question</h3>
+            <input type="text" name="q"><br>
+            <button type="submit">Submit</button>
+        </form>
+        <br>
+        <a href="/add-question">Ask a new question</a>
+    </div>
+
+    <div class="index-container">
+        {% for item in questions %}
+            <div class="index-question-box">
+                <div class="index-col1">
+                    <form action="/question/{{ item['id'] }}" method="post">
+                        <button id="index-question-title" type="submit">
+                            {% if snippet != '' %}
+                                {{item['title']|replace(snippet.lower(), '<mark>'+snippet+'</mark>')|safe}}
+                            {% else %}
+                                {{ item['title'] }}
+                            {% endif %}
+                        </button>
+                    </form>
+                    <p>
+                        {% if snippet != '' %}
+                            {{item['message']|replace(snippet, '<mark>'+snippet+'</mark>')|safe}}
+                        {% else %}
+                            {{ item['message'] }}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="index-col2">
+                    <p>Views: {{ item['view_number'] }}</p>
+                    <p>Votes: {{ item['vote_number'] }}
+                        <form action="/question/{{ item['id'] }}/vote" method="post">
+                            <button type="submit" name="vote" value="1">UP</button>
+                            <button type="submit" name="vote" value="-1">DOWN</button>
+                        </form>
+                    </p>
+                    <p>{{ item['submission_time'] }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

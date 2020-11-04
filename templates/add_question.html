@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Add question{% endblock %}
+{% block main %}
+    {% if question_id %}
+        <form action="/question/{{question_id}}/edit" method="post">
+    {% else %}
+        <form action="/add-question" method="post">
+    {% endif %}
+        <div class="add-new-QA-box">
+            <label for='title'>Title</label><br>
+            <input type="text" id="title" name="title" value="{{ title if title }}" required><br>
+            <br>
+            <label for='message'>Message</label><br>
+            <textarea rows="5" cols="20" id="message" name="message" required>{{ message if message }}</textarea><br>
+            <button id="add-button" type="submit">Submit</button>
+        </div>
+    </form>
+{% endblock %}
